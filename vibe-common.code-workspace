@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../vibe-combat"
+		},
+		{
+			"path": "../vibe-actor"
+		},
+		{
+			"path": "../vibe-scenes"
+		}
+	],
+	"settings": {}
+}

@@ -1,0 +1,31 @@
+{
+  "id": "vibe-common",
+  "title": "Vibe Common",
+  "description": "Shared utilities and services for Vibe Combat and Vibe Actor.",
+  "version": "1.0.0",
+  "compatibility": {
+    "minimum": "13",
+    "verified": "13.348"
+  },
+  "relationships": {
+    "systems": [
+      {
+        "id": "dnd5e",
+        "type": "system",
+        "manifest": "https://github.com/foundryvtt/dnd5e/releases/latest/download/system.json",
+        "compatibility": {
+          "minimum": "5.0.0",
+          "verified": "5.1.8"
+        }
+      }
+    ]
+  },
+  "esmodules": [
+    "scripts/main.js"
+  ],
+  "styles": [],
+  "languages": [],
+  "url": "",
+  "manifest": "",
+  "download": ""
+}

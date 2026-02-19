@@ -23,7 +23,9 @@
   "esmodules": [
     "scripts/main.js"
   ],
-  "styles": [],
+  "styles": [
+    "styles/vibe-theme.css"
+  ],
   "languages": [],
   "url": "",
   "manifest": "",

@@ -1,0 +1,310 @@
+/*
+ * vibe-theme.css
+ * =========================================================
+ * Shared design tokens and utility classes for the entire Vibe ecosystem.
+ * Loaded by vibe-common so every dependent module gets these automatically.
+ * =========================================================
+ */
+
+/* ─── Design Tokens ─────────────────────────────────────── */
+:root {
+  /* Brand colours */
+  --vibe-primary:        #667eea;
+  --vibe-primary-dark:   #5568d3;
+  --vibe-secondary:      #764ba2;
+  --vibe-gradient:       linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --vibe-gradient-flip:  linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+
+  /* Semantic colours */
+  --vibe-success:        #4caf50;
+  --vibe-success-dark:   #45a049;
+  --vibe-danger:         #ff6b6b;
+  --vibe-danger-dark:    #ee5a5a;
+  --vibe-danger-remove:  #ff4444;
+  --vibe-warning:        #ffb347;
+  --vibe-warning-light:  #ffcc33;
+
+  /* Surface / background */
+  --vibe-surface:        #ffffff;
+  --vibe-surface-alt:    #f6f6f8;
+  --vibe-surface-subtle: #f9f9fb;
+
+  /* Borders */
+  --vibe-border:         #dcdcdc;
+  --vibe-border-light:   #e2e2e2;
+  --vibe-border-input:   #ccc;
+  --vibe-border-focus:   rgba(102, 126, 234, 0.4);
+
+  /* Text */
+  --vibe-text-primary:   #1a1a1a;
+  --vibe-text-secondary: #666666;
+  --vibe-text-muted:     #999999;
+
+  /* Radii */
+  --vibe-radius-sm:      4px;
+  --vibe-radius-md:      6px;
+  --vibe-radius-lg:      8px;
+  --vibe-radius-xl:      10px;
+
+  /* Shadows */
+  --vibe-shadow-sm:      0 1px 3px rgba(0, 0, 0, 0.12);
+  --vibe-shadow-md:      0 2px 4px rgba(0, 0, 0, 0.2);
+  --vibe-shadow-brand:   0 2px 4px rgba(102, 126, 234, 0.25);
+}
+
+/* ─── Sidebar Buttons (.vibe-*-button) ────────────────────
+   Used in Actor Directory, Scene Directory, Combat Tracker. */
+.vibe-scene-button,
+.vibe-actor-button,
+.vibe-combat-button {
+  margin-left: 8px;
+  padding: 4px 12px;
+  background: var(--vibe-gradient);
+  color: white;
+  border: none;
+  border-radius: var(--vibe-radius-sm);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.vibe-scene-button:hover,
+.vibe-actor-button:hover,
+.vibe-combat-button:hover {
+  background: var(--vibe-gradient-flip);
+  transform: translateY(-1px);
+  box-shadow: var(--vibe-shadow-md);
+}
+
+.vibe-scene-button:active,
+.vibe-actor-button:active,
+.vibe-combat-button:active {
+  transform: translateY(0);
+}
+
+/* ─── Shared Form Dialogs ─────────────────────────────────
+   Applied to the inner <form> element of all Vibe dialogs. */
+.vibe-dialog-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px;
+}
+
+.vibe-dialog-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.vibe-dialog-form label {
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--vibe-text-primary);
+}
+
+.vibe-dialog-form input,
+.vibe-dialog-form select,
+.vibe-dialog-form textarea {
+  padding: 7px 10px;
+  border: 1px solid var(--vibe-border-input);
+  border-radius: var(--vibe-radius-sm);
+  font-size: 13px;
+  background: var(--vibe-surface);
+  color: var(--vibe-text-primary);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.vibe-dialog-form input:focus,
+.vibe-dialog-form select:focus,
+.vibe-dialog-form textarea:focus {
+  border-color: var(--vibe-primary);
+  outline: none;
+  box-shadow: 0 0 0 2px var(--vibe-border-focus);
+}
+
+.vibe-dialog-form textarea {
+  resize: vertical;
+  min-height: 80px;
+  font-family: inherit;
+}
+
+.vibe-dialog-form input[type="range"] {
+  padding: 0;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  cursor: pointer;
+}
+
+.vibe-dialog-form input[type="range"]:focus {
+  box-shadow: none;
+  border: none;
+}
+
+.vibe-dialog-form .notes,
+.vibe-dialog-form .hint {
+  font-size: 11px;
+  color: var(--vibe-text-secondary);
+  font-style: italic;
+  margin: 2px 0 0 0;
+}
+
+/* Checkbox wrapper */
+.vibe-dialog-form .checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 35px;
+}
+
+.vibe-dialog-form .checkbox-wrapper input[type="checkbox"] {
+  margin: 0;
+  width: 16px;
+  height: 16px;
+  border: none;
+  padding: 0;
+  box-shadow: none;
+}
+
+/* ─── Grid helpers ──────────────────────────────────────── */
+.vibe-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.vibe-grid-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+}
+
+.vibe-grid-full {
+  grid-column: 1 / -1;
+}
+
+/* ─── Button variants ────────────────────────────────────── */
+.vibe-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border: none;
+  border-radius: var(--vibe-radius-sm);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.vibe-btn-primary {
+  background: var(--vibe-gradient);
+  color: white;
+}
+
+.vibe-btn-primary:hover {
+  background: var(--vibe-gradient-flip);
+  transform: translateY(-1px);
+  box-shadow: var(--vibe-shadow-md);
+}
+
+.vibe-btn-primary:active {
+  transform: translateY(0);
+}
+
+.vibe-btn-cancel {
+  background: var(--vibe-surface-alt);
+  color: var(--vibe-text-primary);
+  border: 1px solid var(--vibe-border);
+}
+
+.vibe-btn-cancel:hover {
+  background: var(--vibe-border);
+  transform: translateY(-1px);
+}
+
+.vibe-btn-danger {
+  background: var(--vibe-danger);
+  color: white;
+}
+
+.vibe-btn-danger:hover {
+  background: var(--vibe-danger-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--vibe-shadow-md);
+}
+
+/* ─── Advanced/Collapsible section ─────────────────────── */
+.vibe-advanced-options {
+  border: 1px solid var(--vibe-border-light);
+  border-radius: var(--vibe-radius-sm);
+  padding: 8px 10px;
+  background: var(--vibe-surface-alt);
+}
+
+.vibe-advanced-options summary {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--vibe-text-secondary);
+  user-select: none;
+  margin-bottom: 4px;
+  list-style: none;
+}
+
+.vibe-advanced-options summary:hover {
+  color: var(--vibe-text-primary);
+}
+
+.vibe-advanced-options[open] summary {
+  border-bottom: 1px solid var(--vibe-border-light);
+  padding-bottom: 6px;
+  margin-bottom: 10px;
+}
+
+/* ─── Progress / Status bar ─────────────────────────────── */
+.vibe-status-bar {
+  margin-top: 8px;
+  padding: 8px 10px;
+  background: var(--vibe-surface-alt);
+  border: 1px solid var(--vibe-border);
+  border-radius: var(--vibe-radius-sm);
+  font-size: 12px;
+  display: none;
+}
+
+.vibe-status-bar.active {
+  display: block;
+}
+
+.vibe-status-message {
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: var(--vibe-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vibe-progress-track {
+  width: 100%;
+  height: 6px;
+  background: var(--vibe-border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.vibe-progress-bar {
+  height: 100%;
+  background: var(--vibe-gradient);
+  width: 0%;
+  transition: width 0.3s ease;
+}

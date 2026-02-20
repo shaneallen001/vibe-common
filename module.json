@@ -27,7 +27,18 @@
     "styles/vibe-theme.css"
   ],
   "languages": [],
-  "url": "",
-  "manifest": "",
-  "download": ""
+  "url": "https://github.com/shaneallen001/vibe-common",
+  "manifest": "https://github.com/shaneallen001/vibe-common/releases/latest/download/module.json",
+  "download": "https://github.com/shaneallen001/vibe-common/releases/latest/download/vibe-common.zip",
+  "authors": [
+    {
+      "name": "Shane Allen",
+      "url": "https://github.com/shaneallen001"
+    }
+  ],
+  "license": "MIT",
+  "readme": "README.md",
+  "changelog": "CHANGELOG.md",
+  "bugs": "https://github.com/shaneallen001/vibe-common/issues",
+  "icon": "icon.png"
 }

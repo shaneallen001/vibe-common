@@ -40,6 +40,19 @@ export function registerCommonSettings() {
         type: String,
         default: "",
     });
+
+    game.settings.register(COMMON_NAMESPACE, "imageGenerationModel", {
+        name: "Image Generation Model",
+        hint: "Choose which API to use for image generation.",
+        scope: "world",
+        config: true,
+        type: String,
+        choices: {
+            "dall-e-3": "OpenAI DALL-E 3",
+            "imagen-3": "Gemini Imagen 3"
+        },
+        default: "dall-e-3",
+    });
 }
 
 /**
@@ -68,4 +81,12 @@ export function getOpenAiApiKey() {
         throw new Error("OpenAI API Key is not configured in Vibe Common.");
     }
     return apiKey;
+}
+
+/**
+ * Retrieves the image generation model.
+ * @returns {string} The configured image generation model (e.g., 'dall-e-3' or 'imagen-3').
+ */
+export function getImageGenerationModel() {
+    return game.settings.get(COMMON_NAMESPACE, "imageGenerationModel");
 }

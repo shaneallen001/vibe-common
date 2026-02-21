@@ -121,6 +121,17 @@
   box-sizing: border-box;
 }
 
+.vibe-dialog-form input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+.vibe-dialog-form select {
+  height: 32px;
+  padding: 0 10px;
+}
+
+.vibe-dialog-form select option {
+  background: var(--vibe-surface);
+  color: var(--vibe-text-primary);
+}
+
 .vibe-dialog-form input:focus,
 .vibe-dialog-form select:focus,
 .vibe-dialog-form textarea:focus {
@@ -396,7 +407,8 @@
 .vibe-select-wrapper select {
   appearance: none;
   width: 100%;
-  padding: 7px 30px 7px 10px;
+  height: 32px;
+  padding: 0 30px 0 10px;
   border: 1px solid var(--vibe-border-input);
   border-radius: var(--vibe-radius-sm);
   background: var(--vibe-surface);
@@ -415,6 +427,11 @@
   background: var(--vibe-surface-alt);
   color: var(--vibe-text-muted);
   cursor: not-allowed;
+}
+
+.vibe-select-wrapper select option {
+  background: var(--vibe-surface);
+  color: var(--vibe-text-primary);
 }
 
 .vibe-select-wrapper .vibe-select-caret {

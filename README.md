@@ -42,3 +42,23 @@ For information on the module's architecture, API clients, shared data, CSS toke
 ### Large Scale Refactoring
 -   **Service Injection**: Move towards a dependency injection pattern for clearer service management.
 -   **Type Safety**: Continue migrating core logic to JSDoc/TypeScript for better developer tooling support.
+
+## Recent Changes
+- Fixed double window spawning when clicking Vibe Suite tools by removing deprecated `onClick` handlers in favor of V13+ `onChange` logic in `vibe-menu-injector.js`.
+- Fixed an import error in `image-generator.js` that caused Vibe Actor to fail by properly exporting `getImageGenerationModel` from `vibe-common/scripts/settings.js`.
+
+## Developer Gotchas & Lessons Learned
+
+### Foundry V13+ Scene Controls `onClick` vs `onChange`
+When adding custom tools to the Foundry VTT Scene Controls menu (`getSceneControlButtons` hook), be aware that the `onClick` handler is **deprecated as of Version 13** and will be removed in Version 15. The core software now prefers the `onChange` handler.
+
+**The Gotcha:** If you define *both* `onClick` and `onChange` for a button-type tool (e.g. `button: true`), Foundry will fire both handlers. If the handler's job is to open an application or dialog, defining both will result in **two windows spawning simultaneously**.
+
+**The Solution:** Only define the `onChange` handler for button tools. If backwards compatibility with much older Foundry versions is strictly required, ensure the logic inside checks for an already-open instance before rendering, but for V12/V13+, simply dropping `onClick` entirely is the cleanest approach.
+
+### Foundry Default Input Heights vs Padding
+By default, Foundry VTT's core global styles explicitly restrict `input` and `select` elements to `height: 26px`.
+
+**The Gotcha:** When designing custom stylized components with `vibe-theme.css`, adding standard padding (e.g., `padding: 7px 10px;`) without explicitly changing the height will squash the content box to around `10px`, cropping standard `13px` text. But even after increasing the height (`height: 32px;`), retaining vertical padding on native `input` and `select` elements can still cause the text to render misaligned or cropped at the bottom across different browsers.
+
+**The Solution:** Always explicitly declare a custom `height` (e.g., `height: 32px;`) AND remove vertical padding entirely (e.g., `padding: 0 10px;`) on `.vibe-dialog-form input` and `select` elements to ensure the content area reliably displays text vertically centered without clipping.

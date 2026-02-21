@@ -30,9 +30,12 @@ export function registerVibeMenu() {
         // 0. Dummy Hub (prevents the first button tool from auto-firing when group is selected)
         addTool({
             name: "vibe-hub",
-            title: "Vibe Suite",
+            title: "Vibe Hub",
             icon: "fas fa-sparkles",
-            visible: false
+            button: true,
+            onChange: () => {
+                // This button does nothing, it's just a placeholder
+            }
         });
 
         // 1. Actor Generator
@@ -42,7 +45,7 @@ export function registerVibeMenu() {
                 title: "Vibe Actor Generator",
                 icon: "fas fa-user-plus",
                 button: true, // execute onClick immediately without toggling state
-                [isObjectControls ? "onChange" : "onClick"]: () => {
+                onChange: () => {
                     const VibeActorDialog = game.modules.get("vibe-actor")?.api?.VibeActorDialog;
                     if (VibeActorDialog) {
                         VibeActorDialog.show();
@@ -60,7 +63,7 @@ export function registerVibeMenu() {
                 title: "Vibe Combat Tracker",
                 icon: "fas fa-swords",
                 button: true,
-                [isObjectControls ? "onChange" : "onClick"]: () => {
+                onChange: () => {
                     const VibeCombatApp = game.modules.get("vibe-combat")?.api?.VibeCombatApp;
                     if (VibeCombatApp) {
                         // Open the tracker explicitly
@@ -79,7 +82,7 @@ export function registerVibeMenu() {
                 title: "Vibe Scene Generator",
                 icon: "fas fa-map-marked-alt",
                 button: true,
-                [isObjectControls ? "onChange" : "onClick"]: () => {
+                onChange: () => {
                     const VibeSceneDialog = game.modules.get("vibe-scenes")?.api?.VibeSceneDialog;
                     if (VibeSceneDialog) {
                         VibeSceneDialog.show();
@@ -99,7 +102,7 @@ export function registerVibeMenu() {
                 // Must explicitly specify the namespace here because we aren't using the COMMON_NAMESPACE constant from settings.js directly
                 placement = game.settings.get("vibe-common", "menuPlacement");
             } catch (e) {
-                // Fallback if settings aren't fully registered 
+                // Fallback if settings aren't fully registered
             }
 
             if (isObjectControls) {

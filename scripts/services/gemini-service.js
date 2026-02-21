@@ -115,6 +115,120 @@ export async function callGemini({ apiKey, prompt, responseSchema, abortSignal }
 }
 
 /**
+ * Call the Gemini API with streaming responses
+ * Parses Server-Sent Events (SSE) and calls onChunk progressively.
+ */
+export async function callGeminiStream({ apiKey, prompt, responseSchema, abortSignal, onChunk }) {
+  let lastError = null;
+
+  for (const apiVersion of GEMINI_API_VERSIONS) {
+    for (const model of GEMINI_MODELS) {
+      const requestBody = {
+        contents: [
+          {
+            parts: [{ text: prompt }]
+          }
+        ],
+        generationConfig: {
+          temperature: 0.75,
+          response_mime_type: responseSchema ? "application/json" : "text/plain",
+          ...(responseSchema && { response_schema: responseSchema })
+        }
+      };
+
+      try {
+        const response = await fetch(
+          `https://generativelanguage.googleapis.com/${apiVersion}/models/${model}:streamGenerateContent?alt=sse&key=${apiKey}`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(requestBody),
+            signal: abortSignal
+          }
+        );
+
+        if (!response.ok) {
+          const errorData = await response.json().catch(() => ({}));
+          console.error(`Vibe Common | Gemini Stream Error (${model}):`, errorData);
+          lastError = `Gemini API error (${apiVersion}/${model}): ${response.status} ${response.statusText}`;
+          continue;
+        }
+
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let fullText = "";
+        let buffer = "";
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split("\n");
+
+          // Keep the last incomplete line in the buffer
+          buffer = lines.pop() || "";
+
+          for (let i = 0; i < lines.length; i++) {
+            const line = lines[i].trim();
+            if (line.startsWith("data: ")) {
+              const dataStr = line.slice(6);
+              if (dataStr === "[DONE]") continue;
+
+              try {
+                const data = JSON.parse(dataStr);
+                const textChunk = data.candidates?.[0]?.content?.parts?.map(p => p.text).join("") || "";
+                if (textChunk) {
+                  fullText += textChunk;
+                  if (onChunk) onChunk(textChunk, fullText);
+                }
+              } catch (e) {
+                // If it's the last line, maybe it's incomplete JSON, push it back to buffer
+                if (i === lines.length - 1) {
+                  buffer = line + "\n" + buffer;
+                } else {
+                  console.warn("Vibe Common | Error parsing SSE chunk:", e, line);
+                }
+              }
+            }
+          }
+        }
+
+        if (buffer.trim()) {
+          try {
+            if (buffer.trim().startsWith("data: ")) {
+              const dataStr = buffer.trim().slice(6);
+              if (dataStr !== "[DONE]") {
+                const data = JSON.parse(dataStr);
+                const textChunk = data.candidates?.[0]?.content?.parts?.map(p => p.text).join("") || "";
+                if (textChunk) {
+                  fullText += textChunk;
+                  if (onChunk) onChunk(textChunk, fullText);
+                }
+              }
+            }
+          } catch (e) { }
+        }
+
+        if (!fullText.trim()) {
+          lastError = "Gemini returned an empty response.";
+          continue;
+        }
+
+        return fullText;
+
+      } catch (error) {
+        if (error.name === "AbortError") throw error;
+        lastError = error.message;
+        console.warn(`Vibe Common | Stream error (${apiVersion}/${model}):`, error);
+      }
+    }
+  }
+
+  throw new Error(lastError || "All Gemini models failed. Please check your API key and model availability.");
+}
+
+/**
  * Extract JSON from Gemini response text
  */
 export function extractJson(text) {

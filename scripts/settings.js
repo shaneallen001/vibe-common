@@ -1,3 +1,4 @@
+import { VibeToast } from "./ui/toast-manager.js";
 /**
  * Vibe Common Settings
  * Registers shared settings across the Vibe project.
@@ -49,7 +50,7 @@ export function registerCommonSettings() {
 export function getGeminiApiKey() {
     const apiKey = game.settings.get(COMMON_NAMESPACE, "geminiApiKey");
     if (!apiKey || apiKey.trim() === "") {
-        ui.notifications.error("Gemini API Key is missing. Please configure it in Vibe Common settings.");
+        VibeToast.error("Gemini API Key is missing. Please configure it in Vibe Common settings.");
         throw new Error("Gemini API Key is not configured in Vibe Common.");
     }
     return apiKey;
@@ -63,7 +64,7 @@ export function getGeminiApiKey() {
 export function getOpenAiApiKey() {
     const apiKey = game.settings.get(COMMON_NAMESPACE, "openaiApiKey");
     if (!apiKey || apiKey.trim() === "") {
-        ui.notifications.error("OpenAI API Key is missing. Please configure it in Vibe Common settings.");
+        VibeToast.error("OpenAI API Key is missing. Please configure it in Vibe Common settings.");
         throw new Error("OpenAI API Key is not configured in Vibe Common.");
     }
     return apiKey;

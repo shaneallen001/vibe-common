@@ -1,0 +1,13 @@
+<div class="vibe-select-component {{class}}">
+    {{#if labelText}}
+    <label class="vibe-select-label" for="vibe-select-{{name}}">{{labelText}}</label>
+    {{/if}}
+    <div class="vibe-select-wrapper">
+        <select id="vibe-select-{{name}}" name="{{name}}" {{#if disabled}}disabled{{/if}} class="vibe-select-input">
+            {{#each options}}
+            <option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>
+            {{/each}}
+        </select>
+        <i class="fas fa-chevron-down vibe-select-caret"></i>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+<div class="vibe-toggle-component {{class}}">
+    <label class="vibe-toggle-label">
+        <input type="checkbox" name="{{name}}" {{#if checked}}checked{{/if}} {{#if disabled}}disabled{{/if}}
+            data-vibe-toggle="{{name}}">
+        <span class="vibe-toggle-slider"></span>
+    </label>
+    {{#if labelText}}
+    <span class="vibe-toggle-text">{{labelText}}</span>
+    {{/if}}
+</div>

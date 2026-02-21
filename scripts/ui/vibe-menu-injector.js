@@ -1,3 +1,4 @@
+import { VibeToast } from "./toast-manager.js";
 export function registerVibeMenu() {
     Hooks.on("getSceneControlButtons", (controls) => {
         if (!game.user.isGM) return;
@@ -46,7 +47,7 @@ export function registerVibeMenu() {
                     if (VibeActorDialog) {
                         VibeActorDialog.show();
                     } else {
-                        ui.notifications.warn("Vibe Actor API is not exposed or ready.");
+                        VibeToast.warn("Vibe Actor API is not exposed or ready.");
                     }
                 }
             });
@@ -65,7 +66,7 @@ export function registerVibeMenu() {
                         // Open the tracker explicitly
                         new VibeCombatApp().render(true);
                     } else {
-                        ui.notifications.warn("Vibe Combat API is not exposed or ready.");
+                        VibeToast.warn("Vibe Combat API is not exposed or ready.");
                     }
                 }
             });
@@ -83,7 +84,7 @@ export function registerVibeMenu() {
                     if (VibeSceneDialog) {
                         VibeSceneDialog.show();
                     } else {
-                        ui.notifications.warn("Vibe Scene API is not exposed or ready.");
+                        VibeToast.warn("Vibe Scene API is not exposed or ready.");
                     }
                 }
             });

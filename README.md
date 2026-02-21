@@ -16,6 +16,14 @@ The Vibe Project consists of the following modules:
 ## Installation
 This module is automatically required by `vibe-combat`, `vibe-actor`, and `vibe-scenes`. Ensure it is installed and enabled in your Foundry VTT world.
 
+## Configuration
+Go to **Settings -> Configure Settings -> Vibe Common**:
+
+-   **Gemini API Key**: Required for AI generation in `vibe-combat`, `vibe-actor`, and `vibe-scenes`.
+-   **OpenAI API Key**: Required for image generation in `vibe-actor`.
+
+All Vibe modules share these centralized API keys, so you only need to configure them once.
+
 ---
 
 ## Developer Guide
@@ -151,4 +159,3 @@ All UI styling across Vibe modules references CSS custom properties defined here
 ### Large Scale Refactoring
 -   **Service Injection**: Move towards a dependency injection pattern for clearer service management.
 -   **Type Safety**: Continue migrating core logic to JSDoc/TypeScript for better developer tooling support.
--   **V2 Application Migration**: `vibe-combat` and `vibe-actor` use a mix of V1 Dialogs and V2 Applications. Full migration to ApplicationV2 / DialogV2 is needed before Foundry v16.

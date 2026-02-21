@@ -6,6 +6,22 @@
 export const COMMON_NAMESPACE = "vibe-common";
 
 export function registerCommonSettings() {
+    game.settings.register(COMMON_NAMESPACE, "menuPlacement", {
+        name: "Vibe Suite Menu Location",
+        hint: "Choose where the Vibe Suite buttons should appear: on their own standalone layer, or appended to the existing Tokens group.",
+        scope: "client",
+        config: true,
+        type: String,
+        choices: {
+            "standalone": "Standalone Menu",
+            "token": "Token Tools Menu"
+        },
+        default: "standalone",
+        onChange: () => {
+            ui.controls.initialize();
+        }
+    });
+
     game.settings.register(COMMON_NAMESPACE, "geminiApiKey", {
         name: "Gemini API Key",
         hint: "Your Google Gemini API key. Used by Vibe Actor, Vibe Combat, and Vibe Scenes for text and image generation.",

@@ -144,7 +144,9 @@ All UI styling across Vibe modules references CSS custom properties defined here
 
 #### Module Dependencies
 - **Shared ownership**: Moving shared logic to `vibe-common` was essential to prevent duplication between `vibe-combat` and `vibe-actor`.
-- **Hook Management**: Each module owns its own hook registrations. `vibe-common` registers no hooks of its own (other than the minimal `ready` guard).
+- **Hook Management**: Each module owns its own hook registrations. `vibe-common` registers no hooks of its own (other than the minimal `ready` guard and the `getSceneControlButtons` hook for the Vibe menu).
+  - *Note on `getSceneControlButtons`:* In Foundry V13, the `controls` property passed to this hook is an Object (keyed by control group name), whereas in V12 and earlier it was an Array. The `vibe-menu-injector` was updated to handle both structures to prevent `controls.push is not a function` errors.
+  - *Note on SceneControl button tools:* When registering button tools (where `button: true`), Foundry v12 relies on `onClick` whereas v13 deprecates it in favor of `onChange`. The Vibe Menu Injector dynamically assigns `[isObjectControls ? "onChange" : "onClick"]` to avoid firing the callback twice in compatibility wrappers. Additionally, a hidden `vibe-hub` tool is used as the `activeTool` for the Vibe Suite control group, preventing Foundry from automatically executing the first button tool when the group is activated.
 
 #### Two GeminiService Versions
 - **`vibe-common/scripts/services/gemini-service.js`**: Text-only, used by vibe-actor and vibe-combat via re-export.

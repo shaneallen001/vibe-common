@@ -44,6 +44,10 @@ For information on the module's architecture, API clients, shared data, CSS toke
 -   **Type Safety**: Continue migrating core logic to JSDoc/TypeScript for better developer tooling support.
 
 ## Recent Changes
+- Added `Gemini Imagen 4.0` to the **Image Generation Model** module setting in `vibe-common`.
+- Fixed a 404 error during image generation by correctly mapping the 'imagen-3' and 'imagen-4' options to their full respective API model names in the `v1beta` API endpoint.
+- Handled potential AI safety filter blocks securely, surfacing these errors to the user instead of generic failures.
+- Fixed a deprecation warning related to the global `FilePicker` variable in image saving logic, preparing for Foundry V15.
 - Fixed double window spawning when clicking Vibe Suite tools by removing deprecated `onClick` handlers in favor of V13+ `onChange` logic in `vibe-menu-injector.js`.
 - Fixed an import error in `image-generator.js` that caused Vibe Actor to fail by properly exporting `getImageGenerationModel` from `vibe-common/scripts/settings.js`.
 

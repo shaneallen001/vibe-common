@@ -49,7 +49,8 @@ export function registerCommonSettings() {
         type: String,
         choices: {
             "dall-e-3": "OpenAI DALL-E 3",
-            "imagen-3": "Gemini Imagen 3"
+            "imagen-3": "Gemini Imagen 3",
+            "imagen-4": "Gemini Imagen 4.0"
         },
         default: "dall-e-3",
     });

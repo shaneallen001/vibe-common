@@ -2,7 +2,7 @@
   "id": "vibe-common",
   "title": "Vibe Common",
   "description": "Shared utilities and services for Vibe Combat and Vibe Actor.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "compatibility": {
     "minimum": "13",
     "verified": "13.348"

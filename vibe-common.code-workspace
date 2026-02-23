@@ -11,6 +11,9 @@
 		},
 		{
 			"path": "../vibe-scenes"
+		},
+		{
+			"path": "../vibe-scene-two"
 		}
 	],
 	"settings": {}

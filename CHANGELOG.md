@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.2.0] - Agent Memory Bank & Stability
+- Centralized the agent memory bank protocol into `vibe-common` to govern all Vibe modules.
+- Added workflow documentation for release management and scene generation.
+- Improved documentation and architecture guides for future development.
+
 ## [1.1.0] - Phase 2 Polish & Architecture Updates
 - Added `Gemini Imagen 4.0` generation model setting
 - Resolved deprecated V1 application `onClick` handler issues by transitioning to `onChange` for Scene Control UI

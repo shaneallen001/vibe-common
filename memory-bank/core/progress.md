@@ -17,3 +17,4 @@
 - Scaled up the `<img/>` and `<svg/>` rendering viewports to `60vh` instead of fixed pixel heights to make bounds readable on 1080p+ screens while not hiding the navigation footer buttons.
 - Drafted a scaffold `InpaintingPipeline` test service class as a separate codebase flow that users can explicitly check to test mask-driven room-by-room compositional synthesis instead of entire diffusion passes.
 - Added a random scene prompt generator (dice button) to Step 1 with 40-item tables for moods, locations, features, and environments to accelerate testing cycles.
+- **UI Overhaul**: Redesigned Step 1 prompt window, Step 2 SVG preview (horizontal split layout), and replaced in-window loading with a dedicated `ProgressDialog` featuring scrolling text log and SVG room-blink silhouette animation. Created `styles/vibe-scene-two.css`.

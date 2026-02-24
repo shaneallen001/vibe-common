@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.3.0] - Workflow Consolidation & Memory Bank Centralization
+- Centralized the agent memory bank protocol into `vibe-common` to govern all Vibe modules.
+- Consolidated workflow documentation for release management and scene generation.
+- Finalized Phase 2 stability polish across the module suite.
+
 ## [1.2.0] - Agent Memory Bank & Stability
 - Centralized the agent memory bank protocol into `vibe-common` to govern all Vibe modules.
 - Added workflow documentation for release management and scene generation.

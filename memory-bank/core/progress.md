@@ -1,6 +1,6 @@
 # Progress
 
-**Last Updated:** 2026-02-23
+**Last Updated:** 2026-02-24
 
 - Centralized memory bank created in `vibe-common`.
 - Updated vibe-scene-two pipeline to convert abstract SVG maps into JPEG instances to guide final Imagen 4 generation, and restricted the SVG to only emit macro architectural layouts to prevent minor furniture objects from being physically walled.
@@ -18,3 +18,8 @@
 - Drafted a scaffold `InpaintingPipeline` test service class as a separate codebase flow that users can explicitly check to test mask-driven room-by-room compositional synthesis instead of entire diffusion passes.
 - Added a random scene prompt generator (dice button) to Step 1 with 40-item tables for moods, locations, features, and environments to accelerate testing cycles.
 - **UI Overhaul**: Redesigned Step 1 prompt window, Step 2 SVG preview (horizontal split layout), and replaced in-window loading with a dedicated `ProgressDialog` featuring scrolling text log and SVG room-blink silhouette animation. Created `styles/vibe-scene-two.css`.
+- **SVG Always Includes Labels**: Moved label control from SVG generation to image generation. `svg-generator.js` always emits room name `<text>` elements. `image-generator.js` strips `<text>` nodes from SVG before JPEG conversion when `removeRoomLabels` is true (default).
+- **Step 2 Toggleable Options**: Replaced the Step 1 `includeRoomLabels` checkbox with four Step 2 controls: Generate Walls, Tile Overlay, Remove Room Labels, Inpainting Pipeline. Added a scrollable room list panel showing room names and purposes.
+- **Scene Builder Enhancements**: `generateWalls` toggle skips wall placement. `includeTileOverlay` saves layout JPEG as a semi-transparent Tile on the scene.
+- **SVG Door Orientation Fix**: Added explicit door orientation rules to the prompt — doors must be parallel to the shared wall. Added no-overlap rule (areas, not edges).
+- **Progress Dialog Redesign**: Replaced blocky blink animation with construction beam trace animation (SVG stroke-dasharray paths with glow filter). Dark ambient background, glassmorphism log, modern ring spinner.

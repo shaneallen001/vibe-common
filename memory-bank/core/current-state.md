@@ -1,16 +1,13 @@
 # Current State
 
-**Last Updated:** 2026-02-23
+**Last Updated:** 2026-02-24
 
-- We have updated the memory bank to centralize it in the `vibe-common` module.
-- `vibe-scene-two` image generator attempts to convert SVGs to JPEG bounds using an offscreen canvas. It now successfully redirects SVG-guided requests through the `gemini-2.5-flash-image:generateContent` or `gemini-3-pro-image-preview:generateContent` APIs (based on user settings) for img2img composition, while falling back to `imagen-4.0-generate-001:predict` for pure text-to-image without a reference layout.
-- The pipeline now correctly offsets cartography elements (walls, lights, journals) to match map padding coordinates (`sceneX/Y`), determines the actual image dimensions asynchronously for correct grid scaling (now set to 40px base to correct token size), and supports parsing passages/doors from `<line>` SVG elements.
-- Journal entries are now deterministically mapped from the text outline to the SVG `<rect>` elements via explicit `id` and `data-room-id` attributes, resolving misalignment issues.
-- `vibe-scene-two` layout generation now features a UI toggle giving users explicit control over whether Room text labels are visually painted directly onto the final scene image.
-- `vibe-scene-two` image generation pipeline now saves out the intermediate abstract SVG map as a JPEG to the `Data/worlds/<world>/ai-scenes` folder alongside the generated map to allow for wall discrepancy debugging.
-- Extracted SVG preview UI to scale `60vh` and auto-fit on smaller screens with description labels fixed below the images. Previews dynamically disappear during `isGenerating` blocks while routing via `VibeToast` loading prompts.
-- Added an experimental placeholder `InpaintingPipeline` to test room-by-room generation mapping via individual SVG object extractions to attempt to perfect structure generation.
-- Added a 🎲 random prompt generator button on Step 1 of the scene generator UI, pulling from four 40-item word tables (mood, location, feature, environment) for rapid testing.
-- `vibe-scene-two` has been initialized and pushed to remote GitHub `shaneallen001/vibe-scene-two`.
-- An experimental pass mapping Foundry wall splines via Gemini Vision tracing (Phase 3.5) was developed and subsequently completely reverted due to unreliable structural bounding in complex multi-room logic loops. The codebase operates completely through the standard SVG to Foundry rect conversion logic.
-- **UI Overhaul**: Redesigned Step 1 as prompt-first (full-width textarea, no stepper/label text, dice + Generate buttons in a row). Redesigned Step 2 as horizontal split (SVG left, controls right, buttons always visible). Replaced in-window loading with a dedicated `ProgressDialog` (requires `HandlebarsApplicationMixin`) that shows scrolling text log during outline generation and a blinking room silhouette during image rendering. Created `styles/vibe-scene-two.css` registered via `module.json`. Fixed render-after-close crash by awaiting `close()` with delay.
+- Memory bank centralized in `vibe-common`.
+- `vibe-scene-two` is on branch `dev-phase2-polish`, pushed to `shaneallen001/vibe-scene-two`.
+- **SVG Generator** always includes room name text labels. The old conditional `includeRoomLabels` toggle from Step 1 has been removed. Label stripping now happens downstream in `image-generator.js` via DOM manipulation (`removeRoomLabels` option, default true).
+- **SVG Prompt** includes explicit layout rules: rooms must share walls (edges touching), no area overlap, and door `<line>` elements must be parallel to their shared wall edge (vertical edge = vertical line, horizontal edge = horizontal line).
+- **Step 2 UI** now has 4 toggleable checkboxes: Generate Walls (default ON), Include Layout as Tile Overlay (default OFF), Remove Room Names from Final Image (default ON), Experimental Inpainting Pipeline. A scrollable room list panel shows each room's name and purpose from the outline.
+- **Scene Builder** respects `generateWalls` (skips wall placement when false) and `includeTileOverlay` (saves layout JPEG as a semi-transparent Tile on the scene when true).
+- **Progress Dialog** redesigned with: animated gradient progress bar, phase badge (Designing/Rendering), glassmorphism log area with custom scrollbar, construction beam trace animation (SVG stroke-dasharray paths with per-room hue + glow filter), modern ring spinner. Dark ambient background replaces old brown monotone. Active rooms glow warm gold, completed rooms transition to cool teal.
+- **Pipeline** passes `state.options` (including `removeRoomLabels`, `generateWalls`, `includeTileOverlay`) through to `image-generator.js` `generateFinalPrompt()` and `generateImage()`.
+- InpaintingPipeline is fully implemented with room-by-room mask generation, QA validation, and retry logic.

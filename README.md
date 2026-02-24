@@ -55,6 +55,7 @@ For information on the module's architecture, API clients, shared data, CSS toke
 - (vibe-scene-two) Updated pipeline and image-generator to convert the layout SVG into a base64 JPEG using an offscreen canvas then forward it to Imagen 4.0 as a guiding instance image.
 - (vibe-scene-two) Fixed Journal placement bugs by requiring the AI to map unique `id`s to rooms in the outline directly into the SVG using `data-room-id` attributes, ensuring reliable assignment.
 - (vibe-scene-two) Scaled the map grid to 40 pixels for appropriate token sizes and added a UI toggle to allow the user to control whether or not room text labels should be generated directly on the image.
+- (vibe-scene-two) Updated the generation pipeline to save the intermediate SVG-to-JPEG abstract map out to the Foundry filesystem alongside the final image map to allow for wall alignment and generation discrepancy debugging.
 ## Developer Gotchas & Lessons Learned
 
 ### Foundry V13+ Scene Controls `onClick` vs `onChange`

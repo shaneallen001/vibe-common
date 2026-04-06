@@ -51,7 +51,8 @@ export function registerCommonSettings() {
             "dall-e-3": "OpenAI DALL-E 3",
             "imagen-3": "Gemini Imagen 3",
             "imagen-4": "Gemini Imagen 4.0",
-            "gemini-3-pro-image-preview": "Gemini 3 Pro Image"
+            "gemini-3-pro-image-preview": "Gemini 3 Pro Image",
+            "gemini-3.1-flash-image-preview": "Gemini 3.1 Flash Image Preview"
         },
         default: "dall-e-3",
     });

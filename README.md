@@ -24,14 +24,15 @@ Go to **Settings -> Configure Settings -> Vibe Common**:
 
 -   **Gemini API Key**: Required for AI generation in `vibe-combat`, `vibe-actor`, and `vibe-scenes`.
 -   **OpenAI API Key**: Required for image generation in `vibe-actor`.
+-   **Image Generation Model**: Choose between available models like DALL-E 3, Imagen 3, Imagen 4.0, Gemini 3 Pro Image, or Gemini 3.1 Flash Image Preview.
 
-All Vibe modules share these centralized API keys, so you only need to configure them once.
+All Vibe modules share these centralized API keys and configuration, so you only need to configure them once.
 
 ---
 
 ## Developer Guide
 
-For information on the module's architecture, API clients, shared data, CSS tokens, and hooks, please see [ARCHITECTURE.md](./ARCHITECTURE.md).
+For information on the module's architecture, API clients, shared data, CSS tokens, and hooks, please see [AGENTS.md](./AGENTS.md).
 
 ## Future Work & Roadmap
 
@@ -43,19 +44,15 @@ For information on the module's architecture, API clients, shared data, CSS toke
 -   **Service Injection**: Move towards a dependency injection pattern for clearer service management.
 -   **Type Safety**: Continue migrating core logic to JSDoc/TypeScript for better developer tooling support.
 
-## Recent Changes
-- Added the `memory-bank-protocol` skill, defining the project's Memory Bank and global directives, establishing `vibe-common` as the central location for all memory bank state and rules.
-- Added `Gemini Imagen 4.0` to the **Image Generation Model** module setting in `vibe-common`.
-- Fixed a 404 error during image generation by correctly mapping the 'imagen-3' and 'imagen-4' options to their full respective API model names in the `v1beta` API endpoint.
-- Handled potential AI safety filter blocks securely, surfacing these errors to the user instead of generic failures.
-- Fixed a deprecation warning related to the global `FilePicker` variable in image saving logic, preparing for Foundry V15.
-- Fixed double window spawning when clicking Vibe Suite tools by removing deprecated `onClick` handlers in favor of V13+ `onChange` logic in `vibe-menu-injector.js`.
-- Fixed an import error in `image-generator.js` that caused Vibe Actor to fail by properly exporting `getImageGenerationModel` from `vibe-common/scripts/settings.js`.
-- (vibe-scene-two) Fixed issue with SVG building too many walls for small props by updating prompt to only allow room/macro shapes.
-- (vibe-scene-two) Updated pipeline and image-generator to convert the layout SVG into a base64 JPEG using an offscreen canvas then forward it to Imagen 4.0 as a guiding instance image.
-- (vibe-scene-two) Fixed Journal placement bugs by requiring the AI to map unique `id`s to rooms in the outline directly into the SVG using `data-room-id` attributes, ensuring reliable assignment.
-- (vibe-scene-two) Scaled the map grid to 40 pixels for appropriate token sizes and added a UI toggle to allow the user to control whether or not room text labels should be generated directly on the image.
-- (vibe-scene-two) Updated the generation pipeline to save the intermediate SVG-to-JPEG abstract map out to the Foundry filesystem alongside the final image map to allow for wall alignment and generation discrepancy debugging.
+## AI Agent Context
+
+This project uses a **Memory Bank** system for AI agent context persistence across sessions.
+
+-   **Memory Bank location**: `vibe-common/memory-bank/`
+-   **Agent skills and protocols**: `.agents/skills/memory-bank-protocol/SKILL.md`
+-   **Agent workflows**: `.agents/workflows/`
+
+Agents must read the Memory Bank files at session start and update them at session end. See the `SKILL.md` for full protocols. Change history is tracked in `memory-bank/core/progress.md` — not in this README.
 ## Developer Gotchas & Lessons Learned
 
 ### Foundry V13+ Scene Controls `onClick` vs `onChange`

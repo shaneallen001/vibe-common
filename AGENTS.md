@@ -2,13 +2,13 @@
 
 ## Project Overview
 
-A suite of AI-powered modules for Foundry VTT (v13+) that bring generative AI to tabletop RPG game masters. `vibe-common` is the single shared dependency — all UI base classes, API clients, CSS tokens, and settings live here. Other modules: `vibe-actor` (NPC generation), `vibe-combat` (encounter building), `vibe-scenes` (dungeon generation), `vibe-scene-two` (multi-step scene pipeline).
+A suite of AI-powered modules for Foundry VTT (v14+) that bring generative AI to tabletop RPG game masters. `vibe-common` is the single shared dependency — all UI base classes, API clients, CSS tokens, and settings live here. Other modules: `vibe-actor` (NPC generation), `vibe-combat` (encounter building), `vibe-scenes` (dungeon generation), `vibe-scene-two` (multi-step scene pipeline).
 
 Source repos: `shaneallen001/vibe-common`, `shaneallen001/vibe-actor`, `shaneallen001/vibe-combat`, `shaneallen001/vibe-scenes`, `shaneallen001/vibe-scene-two`.
 
 ## Tech Stack
 
-- **Runtime**: Foundry VTT v13 (build 351+), browser-based (no Node.js in production)
+- **Runtime**: Foundry VTT v14 (build 360+), browser-based (no Node.js in production)
 - **Language**: JavaScript ES modules — no CommonJS, no bundlers. Foundry loads scripts directly.
 - **Types**: JSDoc `@typedef` / `@param` annotations for IDE support (no TypeScript)
 - **AI Services**: Google Gemini API (text/JSON + image generation), OpenAI API (DALL-E portraits/icons)
@@ -42,7 +42,7 @@ Other modules import from these files — this defines the cross-module contract
 
 **`scripts/ui/`**
 - `VibeToast` — Static methods: `info()`, `warn()`, `error()`, `success()`, `show()`
-- `VibeApplicationV2` — ApplicationV2 subclass with loading state
+- `VibeApplicationV2` — `HandlebarsApplicationMixin(ApplicationV2)` subclass with loading state; extend this for all app UIs
 - `VibeDialogV2` — DialogV2 subclass with loading state
 - `registerVibeMenu()` — Scene control button injection
 

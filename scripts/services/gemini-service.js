@@ -14,7 +14,7 @@ export const GEMINI_API_VERSIONS = ["v1beta"];
 /**
  * Call the Gemini API with fallback for models and versions
  */
-export async function callGemini({ apiKey, prompt, responseSchema, abortSignal }) {
+export async function callGemini({ apiKey, prompt, responseSchema, jsonMode = false, abortSignal }) {
   let lastError = null;
 
   for (const apiVersion of GEMINI_API_VERSIONS) {
@@ -32,7 +32,7 @@ export async function callGemini({ apiKey, prompt, responseSchema, abortSignal }
             ],
             generationConfig: {
               temperature: 0.75,
-              response_mime_type: responseSchema ? "application/json" : "text/plain",
+              response_mime_type: (responseSchema || jsonMode) ? "application/json" : "text/plain",
               ...(responseSchema && { response_schema: responseSchema })
             }
           };

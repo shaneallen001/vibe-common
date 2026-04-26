@@ -65,6 +65,8 @@ Other modules import from these files — this defines the cross-module contract
 ### Foundry V14+ Scene Controls: `onClick` vs `onChange`
 When adding custom tools to Scene Controls (`getSceneControlButtons` hook), `onClick` is deprecated in V13 and removed in V15. In V14 only `onChange` is recognized. Only define `onChange`.
 
+**Do NOT apply this to ApplicationV2 header controls.** The `getHeaderControlsApplicationV2` hook uses `onClick` (not `onChange`) — Foundry's `_renderHeaderControl` wires `control.onClick` directly to the button's click event. Using `onChange` there leaves the button with no click handler.
+
 ### Foundry Default Input Heights
 Foundry's global CSS sets `input`/`select` to `height: 26px`. Adding padding without overriding height squashes text. **Solution:** Always set `height: 32px` AND `padding: 0 10px` on styled inputs.
 
@@ -95,3 +97,24 @@ _onRender(context, options) {
 
 ### render() call style in V2
 `new MyApp().render({ force: true })` to open. `this.render()` to re-render in-place. The V1 `render(true)` boolean arg is not valid in V2.
+
+### ApplicationV2 `tag: "form"` — do NOT wrap the template in `<form>`
+When `DEFAULT_OPTIONS.tag = "form"`, the application's root element is already a `<form>`. Wrapping your Handlebars template content in another `<form>` creates invalid nested forms — the browser breaks out of the outer form and the inner one submits to the page URL (full reload). Use a `<div>` for the outermost wrapper in templates instead:
+```html
+<!-- WRONG — nested form causes page reload on submit -->
+<form class="vibe-dialog-form">...</form>
+
+<!-- CORRECT -->
+<div class="vibe-dialog-form">...</div>
+```
+Add a `<button type="submit">` anywhere inside the `<div>` to trigger the ApplicationV2 form handler.
+
+### Image generation model routing: use `model !== "dall-e-3"`, not `model.includes("imagen")`
+The `imageGenerationModel` setting has multiple Gemini options (`imagen-3`, `imagen-4`, `gemini-3.1-flash-image-preview`, etc.). Checking `model.includes("imagen")` misses the `gemini-*` image models and routes them to OpenAI by mistake. Always route by exclusion:
+```js
+const useGemini = model !== "dall-e-3";
+const apiKey = useGemini ? getGeminiApiKey() : getOpenAiApiKey();
+```
+
+### Gemini constrained JSON output adds unexpected fields from schema
+When `response_mime_type: "application/json"` is used with a `response_schema`, Gemini will attempt to populate every optional field it sees in the schema, often with invalid placeholder values (e.g. `spend: 0` when the schema requires `>= 1`). Keep schemas lean — only include fields that downstream code actually reads. Remove optional fields that exist purely as pass-through hints if they cause validation noise.

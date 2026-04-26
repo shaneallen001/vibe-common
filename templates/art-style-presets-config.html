@@ -1,0 +1,79 @@
+<form class="vibe-common-art-style-presets">
+  <style>
+    .vibe-common-art-style-presets #presets-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 480px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+    .vibe-common-art-style-presets .preset-row {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 4px;
+      padding: 8px;
+    }
+    .vibe-common-art-style-presets .preset-row-fields {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .vibe-common-art-style-presets .preset-row-fields input[type="text"] {
+      height: 32px;
+      padding: 0 10px;
+      font-size: 13px;
+    }
+    .vibe-common-art-style-presets .preset-row-fields textarea {
+      font-size: 12px;
+      resize: vertical;
+    }
+    .vibe-common-art-style-presets .preset-row-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .vibe-common-art-style-presets .preset-row-actions button {
+      white-space: nowrap;
+      font-size: 12px;
+    }
+  </style>
+
+  <p class="notes">
+    Manage reusable art style presets. Selecting one in the image-generation dialog will pre-fill the style/description field.
+  </p>
+
+  <div id="presets-list">
+    {{#each presets}}
+    <div class="preset-row">
+      <div class="preset-row-fields">
+        <input type="text" data-field="name" value="{{this.name}}" placeholder="Preset name">
+        <textarea data-field="style" rows="3" placeholder="Comma-separated style descriptors...">{{this.style}}</textarea>
+      </div>
+      <div class="preset-row-actions">
+        <button type="button" class="btn-preset-enhance" title="Enhance with Gemini">
+          <i class="fas fa-wand-magic-sparkles"></i> Enhance
+        </button>
+        <button type="button" class="btn-preset-delete" title="Delete preset">
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+
+  <div style="margin-top: 12px;">
+    <button type="button" id="btn-add-preset">
+      <i class="fas fa-plus"></i> Add Preset
+    </button>
+  </div>
+
+  <footer class="sheet-footer flexrow" style="margin-top: 12px;">
+    <button type="submit" name="submit">
+      <i class="fas fa-save"></i> Save
+    </button>
+  </footer>
+</form>

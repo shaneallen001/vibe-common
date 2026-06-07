@@ -1,6 +1,6 @@
 ---
 created: 2026-06-06
-modified: 2026-06-06
+modified: 2026-06-07
 tags: [meta, projects, memory-bank]
 summary: Persistent multi-session initiative folders for the vibe modules. Each project folder has its own AGENTS.md with Status, What & Why, and Next Session handover.
 ---
@@ -31,7 +31,10 @@ Plus any project files (plans, notes, fixtures) as needed.
 
 ## Current Projects
 
-_None yet. Created as real multi-session initiatives appear._
+- **[vibe-scene-two-hardening/](vibe-scene-two-hardening/AGENTS.md)** — _complete (2026-06-07), shipped v2.0.0._
+  Brought `vibe-scene-two` (the SVG-planning scene pipeline) up to sibling
+  production level (Foundry v14, correctness/robustness fixes) and made it THE
+  canonical scenes module. Keeps the `vibe-scene-two` id (no rename).
 
 ## Navigation
 

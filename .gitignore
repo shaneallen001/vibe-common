@@ -1,6 +1,7 @@
 # Debug / test artifacts
 console-errors-all.txt
 console-warnings-all.txt
+localhost-*.txt
 *.png
 !icon.png
 
@@ -13,3 +14,7 @@ console-warnings-all.txt
 # Marketing / docs (not needed by consumers)
 Marketing Images/
 docs/superpowers/
+
+# Memory Bank scratch — ephemeral, local-only (keep the area's AGENTS.md)
+memory-bank/scratch/*
+!memory-bank/scratch/AGENTS.md

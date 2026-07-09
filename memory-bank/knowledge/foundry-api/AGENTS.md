@@ -24,6 +24,9 @@ version-removal migrations (v14/v15).
 - **[ambient-light-radii-distance-units.md](ambient-light-radii-distance-units.md)** —
   `AmbientLight` `dim`/`bright` are in grid distance units (feet), not pixels;
   convert pixel geometry via `scene.grid.size`/`distance` first.
+- **[scene-background-deprecated-use-levels-v14.md](scene-background-deprecated-use-levels-v14.md)** —
+  `Scene#background`/`backgroundColor`/`foreground` are deprecated in v14 (removed
+  v16); read/write via `scene.firstLevel`. Create payloads are still auto-migrated.
 
 ## Navigation
 

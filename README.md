@@ -23,7 +23,8 @@ This module is automatically required by `vibe-combat`, `vibe-actor`, and `vibe-
 Go to **Settings -> Configure Settings -> Vibe Common**:
 
 -   **Gemini API Key**: Required for AI generation in `vibe-combat`, `vibe-actor`, and `vibe-scenes`.
--   **OpenAI API Key**: Required for image generation in `vibe-actor`.
+-   **OpenAI API Key**: Required for OpenAI image generation in `vibe-actor` and GPT-5.5 actor text generation.
+-   **Actor Generation Model**: Choose Gemini Auto, OpenAI GPT-5.5 medium reasoning, or OpenAI GPT-5.5 low reasoning for `vibe-actor` creature data.
 -   **Image Generation Model**: Choose between available models like DALL-E 3, Imagen 3, Imagen 4.0, Gemini 3 Pro Image, or Gemini 3.1 Flash Image Preview.
 
 All Vibe modules share these centralized API keys and configuration, so you only need to configure them once.

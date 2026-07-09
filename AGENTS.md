@@ -18,6 +18,14 @@ Source repos: `shaneallen001/vibe-common`, `shaneallen001/vibe-actor`, `shaneall
 
 No build step. No module-specific tests.
 
+## Active Plan
+
+At session start, also read [`v2-plan.md`](v2-plan.md). It is the current
+suite-level roadmap: save/publish the present work to GitHub first, add the
+test/smoke harness layer next, then continue the remaining hardening and feature
+work. Consider subagents for independent repo inventory, test harness, and
+verification tasks to save time and cost.
+
 ## Public API
 
 Other modules import from these files — this defines the cross-module contract.
@@ -26,7 +34,7 @@ Other modules import from these files — this defines the cross-module contract
 - `callGemini({ apiKey, prompt, responseSchema, abortSignal })` — Gemini API with model fallback + retry
 - `callGeminiStream({ apiKey, prompt, responseSchema, abortSignal })` — Streaming variant
 - `extractJson(text)` — Parse JSON from Gemini response (handles fences, auto-slice, auto-wrap)
-- `GEMINI_MODELS` — Fallback chain: `["gemini-3.1-pro-preview", "gemini-3.1-flash-preview", "gemini-2.5-flash-lite"]`
+- `GEMINI_MODELS` — Fallback chain: `["gemini-3.5-flash", "gemini-3.1-pro-preview", "gemini-3.1-flash-preview", "gemini-2.5-flash-lite"]`
 
 **`scripts/constants.js`**
 - `CR_XP_TABLE`, `XP_THRESHOLDS_BY_LEVEL`, `SUGGESTION_TYPES`
@@ -38,7 +46,8 @@ Other modules import from these files — this defines the cross-module contract
 
 **`scripts/settings.js`**
 - `registerCommonSettings()`, `getGeminiApiKey()`, `getOpenAiApiKey()`, `getImageGenerationModel()`
-- Setting keys: `geminiApiKey`, `openaiApiKey`, `imageGenerationModel`, `menuPlacement`
+- `getActorGenerationModel()`, `getActorGenerationApiKey()`, `isOpenAiActorGenerationModel()`
+- Setting keys: `geminiApiKey`, `openaiApiKey`, `imageGenerationModel`, `actorGenerationModel`, `menuPlacement`
 
 **`scripts/ui/`**
 - `VibeToast` — Static methods: `info()`, `warn()`, `error()`, `success()`, `show()`

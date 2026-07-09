@@ -1,5 +1,9 @@
 # Changelog
 
+## [Unreleased]
+- Added a Vibe Actor text-model setting with Gemini Auto plus OpenAI GPT-5.5 medium and low reasoning options.
+- Added a shared OpenAI Responses API helper for structured text generation.
+
 ## [1.3.0] - Workflow Consolidation & Memory Bank Centralization
 - Centralized the agent memory bank protocol into `vibe-common` to govern all Vibe modules.
 - Consolidated workflow documentation for release management and scene generation.

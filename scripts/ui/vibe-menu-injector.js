@@ -70,6 +70,23 @@ export function registerVibeMenu() {
       };
     }
 
+    if (game.modules.get("vibe-scene-two")?.active) {
+      tools["vibe-scene-two"] = {
+        name: "vibe-scene-two",
+        title: "Vibe Scene",
+        icon: "fas fa-map-marked-alt",
+        button: true,
+        onChange: () => {
+          const App = game.modules.get("vibe-scene-two")?.api?.GeneratorApp;
+          if (App) {
+            new App().render({ force: true });
+          } else {
+            VibeToast.warn("Vibe Scene API is not exposed or ready.");
+          }
+        }
+      };
+    }
+
     if (Object.keys(tools).length === 0) return;
 
     if (placement === "standalone") {
@@ -88,6 +105,7 @@ export function registerVibeMenu() {
         if (tools["vibe-actor"]) tokenGroup.tools["vibe-actor"] = tools["vibe-actor"];
         if (tools["vibe-combat"]) tokenGroup.tools["vibe-combat"] = tools["vibe-combat"];
         if (tools["vibe-scene"]) tokenGroup.tools["vibe-scene"] = tools["vibe-scene"];
+        if (tools["vibe-scene-two"]) tokenGroup.tools["vibe-scene-two"] = tools["vibe-scene-two"];
       }
     }
   });

@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [2.0.1] - 2026-07-09
 - Added a Vibe Actor text-model setting with Gemini Auto plus OpenAI GPT-5.5 medium and low reasoning options.
 - Added a shared OpenAI Responses API helper for structured text generation.
 

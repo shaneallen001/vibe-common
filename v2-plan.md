@@ -112,6 +112,8 @@ Use the Tailscale/LAN URL first. Fall back to the public URL if the first is una
 
 **Subagent option:** One subagent can verify GitHub release URLs and asset availability while the main agent prepares release notes.
 
+**2026-07-09 status:** Released `vibe-common` v2.0.1, `vibe-actor` v2.0.0, and `vibe-combat` v2.0.0. `vibe-scene-two` remains on existing latest v2.0.0. Verified all latest `module.json` and zip download URLs return 200.
+
 ## Phase 3: Test Foundation First
 
 **Purpose:** Add fast checks so future work does not require full manual Foundry runs every time.
